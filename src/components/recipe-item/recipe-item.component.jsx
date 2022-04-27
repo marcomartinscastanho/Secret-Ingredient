@@ -5,8 +5,8 @@ export const RecipeItem = ({ recipe }) => {
 
   return (
     <div className="recipe-container">
-      <div>{title}</div>
-      <span>{time} minutos</span>
+      <div className="recipe-title">{title}</div>
+      <span className="recipe-time">{time} minutos</span>
       <div className="recipe-tags-container">
         {tags.map((tag) => (
           <div className="recipe-tag" key={tag.id}>

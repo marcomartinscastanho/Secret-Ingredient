@@ -13,9 +13,20 @@
   }
 }
 
+.recipe-title {
+  width: 50%;
+}
+
+.recipe-time {
+  width: 20%;
+}
+
 .recipe-tags-container {
+  width: 30%;
   display: flex;
   flex-direction: row;
+  overflow: hidden;
+  justify-content: right;
 }
 
 .recipe-tag {
