@@ -1,0 +1,30 @@
+.recipe-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 0 0 2px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: azure;
+  }
+}
+
+.recipe-tags-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.recipe-tag {
+  background-color: lightblue;
+  margin: 0 3px 0 0;
+  padding: 2px 5px;
+  border-radius: 3px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
