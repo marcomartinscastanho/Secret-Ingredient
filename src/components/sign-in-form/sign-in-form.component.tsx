@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { FormInput } from "../form-input/form-input.component";
 import {
   signInWithGooglePopup,
   signInUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
-import { Button } from "../button/button.component";
-import "./sign-in-form.styles.scss";
+import { Button, BUTTON_TYPES_CLASSES } from "../button/button.component";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
+import { ButtonsContainer, SignInContainer } from "./sign-in-form.styles";
 
 const defaultFormFields = {
   email: "",
@@ -33,12 +34,12 @@ export const SignInForm = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
@@ -46,9 +47,9 @@ export const SignInForm = () => {
       console.log(response);
       resetFormFields();
     } catch (error) {
-      switch (error.code) {
-        case "auth/wrong-password":
-        case "auth/user-not-found":
+      switch ((error as AuthError).code) {
+        case AuthErrorCodes.INVALID_PASSWORD:
+        case AuthErrorCodes.USER_DELETED:
           alert("email e/ou password incorrectos");
           break;
         default:
@@ -58,7 +59,7 @@ export const SignInForm = () => {
   };
 
   return (
-    <div className="sign-in-container">
+    <SignInContainer>
       <h2>Já tem conta?</h2>
       <span>Entrar com email e password</span>
       <form onSubmit={handleSubmit}>
@@ -78,14 +79,14 @@ export const SignInForm = () => {
           value={password}
           onChange={handleChange}
         />
-        <div className="buttons-container">
+        <ButtonsContainer>
           <Button type="submit">Entrar</Button>
-          <Button type="button" buttonType="google" onClick={signInWithGoogle}>
+          <Button type="button" buttonType={BUTTON_TYPES_CLASSES.google} onClick={signInWithGoogle}>
             Entrar com Google
           </Button>
-        </div>
+        </ButtonsContainer>
       </form>
-    </div>
+    </SignInContainer>
   );
 };
 

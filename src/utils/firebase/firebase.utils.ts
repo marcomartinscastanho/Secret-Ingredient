@@ -5,8 +5,9 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
+  User,
 } from "firebase/auth";
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore, QueryDocumentSnapshot, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCdgtS1HYzoP7jcplx3-RBH9W51stC_YEM",
@@ -46,13 +47,13 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 /**
  * Auth User
  */
-export const createAuthUserWithEmailAndPassword = async (email, password) => {
+export const createAuthUserWithEmailAndPassword = async (email: string, password: string) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const signInUserWithEmailAndPassword = async (email, password) => {
+export const signInUserWithEmailAndPassword = async (email: string, password: string) => {
   if (!email || !password) return;
 
   return await signInWithEmailAndPassword(auth, email, password);
@@ -61,7 +62,20 @@ export const signInUserWithEmailAndPassword = async (email, password) => {
 /**
  * User Documents
  */
-export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
+export type AdditionalInformation = {
+  displayName?: string;
+};
+
+export type UserData = {
+  createdAt: Date;
+  displayName: string;
+  email: string;
+};
+
+export const createUserDocumentFromAuth = async (
+  userAuth: User,
+  additionalInformation = {} as AdditionalInformation
+): Promise<void | QueryDocumentSnapshot<UserData>> => {
   if (!userAuth) return;
 
   const userDocRef = doc(db, "users", userAuth.uid);
@@ -74,9 +88,9 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
     try {
       await setDoc(userDocRef, { displayName, email, createdAt, ...additionalInformation });
     } catch (error) {
-      console.error("error creating the user", error.message);
+      console.error("error creating the user", error);
     }
   }
 
-  return userDocRef;
+  return userSnapshot as QueryDocumentSnapshot<UserData>;
 };

@@ -1,4 +1,6 @@
-.recipe-container {
+import styled from "styled-components";
+
+export const RecipeContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -12,29 +14,29 @@
     cursor: pointer;
     background-color: rgb(245, 245, 245);
   }
-}
+`;
 
-.recipe-title {
+export const RecipeTitle = styled.div`
   width: 50%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
+`;
 
-.recipe-time {
+export const RecipeTime = styled.span`
   width: 20%;
-}
+`;
 
-.recipe-tags-container {
+export const RecipeTagsContainer = styled.div`
   width: 30%;
   height: 26px;
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
   justify-content: right;
-}
+`;
 
-.recipe-tag {
+export const RecipeTag = styled.div`
   height: 26px;
   display: block;
   color: white;
@@ -47,4 +49,4 @@
   &:hover {
     cursor: pointer;
   }
-}
+`;
