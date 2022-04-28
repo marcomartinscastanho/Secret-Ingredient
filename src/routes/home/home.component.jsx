@@ -5,7 +5,7 @@ export const Home = () => {
   const recipes = [
     {
       id: 1,
-      title: "Bacalhau à Braz",
+      title: "Pataniscas de bacalhau com arroz de feijão",
       time: 30,
       tags: [
         { id: 1, name: "Peixe" },
@@ -19,6 +19,9 @@ export const Home = () => {
       tags: [
         { id: 3, name: "Carne" },
         { id: 4, name: "Mexicana" },
+        { id: 5, name: "Exemplo" },
+        { id: 6, name: "Etiqueta" },
+        { id: 7, name: "Outra Etiqueta" },
       ],
     },
   ];
