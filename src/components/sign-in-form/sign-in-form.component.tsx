@@ -1,11 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { FormInput } from "../form-input/form-input.component";
-import {
-  signInWithGooglePopup,
-  signInAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
-} from "../../utils/firebase/firebase.utils";
 import { Button, BUTTON_TYPES_CLASSES } from "../button/button.component";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { ButtonsContainer, SignInContainer } from "./sign-in-form.styles";

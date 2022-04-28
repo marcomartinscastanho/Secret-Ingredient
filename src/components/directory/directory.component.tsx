@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Recipe } from "../../store/recipes/recipe.types";
 import { RecipeItem } from "../recipe-item/recipe-item.component";
 import { DirectoryContainer } from "./directory.styles";
 

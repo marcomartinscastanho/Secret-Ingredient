@@ -1,28 +1,50 @@
 import { Outlet } from "react-router-dom";
 import { Directory } from "../../components/directory/directory.component";
+import { Recipe } from "../../store/recipes/recipe.types";
 
 export const Home = () => {
-  const recipes = [
+  const recipes: Recipe[] = [
     {
-      id: 1,
+      id: "1",
       title: "Pataniscas de bacalhau com arroz de feijão",
-      time: 30,
+      description: "blablabla",
+      prepTime: 30,
+      cookTime: 40,
+      ingredients: [],
+      prepSteps: [],
       tags: [
-        { id: 1, name: "Peixe" },
-        { id: 2, name: "Portuguesa" },
+        { id: "1", name: "Peixe" },
+        { id: "2", name: "Portuguesa" },
       ],
+      isPublic: true,
+      owner: {
+        id: "1",
+        email: "aaaa",
+        displayName: "Aadas",
+        createdAt: new Date(),
+      },
     },
     {
-      id: 2,
+      id: "2",
       title: "Chili com carne",
-      time: 50,
+      description: "blablabla",
+      prepTime: 20,
+      cookTime: 40,
+      ingredients: [],
+      prepSteps: [],
       tags: [
-        { id: 3, name: "Carne" },
-        { id: 4, name: "Mexicana" },
-        { id: 5, name: "Exemplo" },
-        { id: 6, name: "Etiqueta" },
-        { id: 7, name: "Outra Etiqueta" },
+        { id: "3", name: "Carne" },
+        { id: "4", name: "Mexicana" },
+        { id: "5", name: "Exemplo" },
+        { id: "6", name: "Etiqueta" },
       ],
+      isPublic: true,
+      owner: {
+        id: "1",
+        email: "aaaa",
+        displayName: "Aadas",
+        createdAt: new Date(),
+      },
     },
   ];
 

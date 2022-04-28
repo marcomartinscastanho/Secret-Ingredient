@@ -3,6 +3,14 @@ import { Navigation } from "./routes/navigation/navigation.component";
 import { Home } from "./routes/home/home.component";
 import { Auth } from "./routes/auth/auth.component";
 
+const Ingredients = () => {
+  return <h1>Ingredientes</h1>;
+};
+
+const Tags = () => {
+  return <h1>Etiquetas</h1>;
+};
+
 const Profile = () => {
   return <h1>I am the profile page</h1>;
 };
@@ -12,8 +20,10 @@ export const App = () => {
     <Routes>
       <Route path="/" element={<Navigation />}>
         <Route index element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/ingredients" element={<Ingredients />} />
+        <Route path="/tags" element={<Tags />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>
   );
