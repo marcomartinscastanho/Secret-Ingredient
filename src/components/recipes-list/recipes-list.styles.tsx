@@ -1,5 +1,5 @@
 import styled from "styled-components";
 
-export const DirectoryContainer = styled.div`
+export const RecipesContainer = styled.div`
   min-width: 30%;
 `;

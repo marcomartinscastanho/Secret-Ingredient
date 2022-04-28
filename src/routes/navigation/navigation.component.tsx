@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import { ProfileDropdown } from "../../components/profile-dropdown/profile-dropdown.container";
+import { RecipesDropdown } from "../../components/recipes-dropdown/recipes-dropdown.container";
+import { setIsRecipesMenuOpen } from "../../store/recipes/recipe.action";
+import { selectIsRecipesMenuOpen } from "../../store/recipes/recipe.selector";
 import { setIsProfileMenuOpen } from "../../store/user/user.action";
 import { selectCurrentUser, selectIsProfileMenuOpen } from "../../store/user/user.selector";
 import {
@@ -17,8 +20,16 @@ export const Navigation = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isProfileMenuOpen = useSelector(selectIsProfileMenuOpen);
+  const isRecipesMenuOpen = useSelector(selectIsRecipesMenuOpen);
 
-  const toggleIsProfileMenuOpen = () => dispatch(setIsProfileMenuOpen(!isProfileMenuOpen));
+  const toggleIsProfileMenuOpen = () => {
+    if (isRecipesMenuOpen) dispatch(setIsRecipesMenuOpen(false));
+    dispatch(setIsProfileMenuOpen(!isProfileMenuOpen));
+  };
+  const toggleIsRecipesMenuOpen = () => {
+    if (isProfileMenuOpen) dispatch(setIsProfileMenuOpen(false));
+    dispatch(setIsRecipesMenuOpen(!isRecipesMenuOpen));
+  };
 
   return (
     <Fragment>
@@ -27,7 +38,9 @@ export const Navigation = () => {
           <CrownLogo className="logo" />
         </LogoContainer>
         <NavLinks>
-          <NavLink to="/">RECEITAS</NavLink>
+          <NavLink as="span" onClick={toggleIsRecipesMenuOpen}>
+            RECEITAS
+          </NavLink>
           <NavLink to="/ingredients">INGREDIENTES</NavLink>
           <NavLink to="/tags">ETIQUETAS</NavLink>
           {!!currentUser ? (
@@ -37,6 +50,7 @@ export const Navigation = () => {
           ) : (
             <NavLink to="/auth">ENTRAR</NavLink>
           )}
+          {isRecipesMenuOpen && <RecipesDropdown />}
           {isProfileMenuOpen && <ProfileDropdown />}
         </NavLinks>
       </NavigationContainer>

@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { Navigation } from "./routes/navigation/navigation.component";
 import { Home } from "./routes/home/home.component";
 import { Auth } from "./routes/auth/auth.component";
+import { Recipes } from "./routes/recipes/recipes.component";
 
 const Ingredients = () => {
   return <h1>Ingredientes</h1>;
@@ -24,6 +25,7 @@ export const App = () => {
         <Route path="/ingredients" element={<Ingredients />} />
         <Route path="/tags" element={<Tags />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/recipes/*" element={<Recipes />} />
       </Route>
     </Routes>
   );

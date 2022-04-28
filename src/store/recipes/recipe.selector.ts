@@ -11,6 +11,11 @@ export const selectRecipes = createSelector(
   (recipesSlice) => recipesSlice.recipes
 );
 
+export const selectIsRecipesMenuOpen = createSelector(
+  [selectRecipeReducer],
+  (recipesSlice) => recipesSlice.isRecipesMenuOpen
+);
+
 export const selectRecipesIsLoading = createSelector(
   [selectRecipeReducer],
   (recipesSlice) => recipesSlice.isLoading

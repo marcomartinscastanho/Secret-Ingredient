@@ -3,6 +3,7 @@ import { Ingredient } from "../ingredients/ingredient.types";
 import { Tag } from "../tags/tag.types";
 
 export enum RECIPES_ACTION_TYPES {
+  SET_IS_RECIPES_MENU_OPEN = "user/SET_IS_RECIPES_MENU_OPEN",
   FETCH_RECIPES_START = "recipe/FETCH_RECIPES_START",
   FETCH_RECIPES_SUCCESS = "recipe/FETCH_RECIPES_SUCCESS",
   FETCH_RECIPES_FAILED = "recipe/FETCH_RECIPES_FAILED",
