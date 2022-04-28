@@ -1,11 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { FormInput } from "../form-input/form-input.component";
-import {
-  createAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
-} from "../../utils/firebase/firebase.utils";
-import { Button } from "../button/button.component";
+import { useDispatch } from "react-redux";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
+import { FormInput } from "../form-input/form-input.component";
+import { Button } from "../button/button.component";
+import { signUpStart } from "../../store/user/user.action";
 
 const defaultFormFields = {
   displayName: "",
@@ -15,12 +13,11 @@ const defaultFormFields = {
 };
 
 export const SignUpForm = () => {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  const resetFormFields = () => {
-    setFormFields(defaultFormFields);
-  };
+  const resetFormFields = () => setFormFields(defaultFormFields);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -36,8 +33,7 @@ export const SignUpForm = () => {
     }
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(email, password);
-      await createUserDocumentFromAuth(user, { displayName });
+      dispatch(signUpStart(email, password, displayName));
       resetFormFields();
     } catch (error) {
       if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {

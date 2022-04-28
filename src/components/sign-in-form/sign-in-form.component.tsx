@@ -1,13 +1,15 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
 import { FormInput } from "../form-input/form-input.component";
 import {
   signInWithGooglePopup,
-  signInUserWithEmailAndPassword,
+  signInAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 import { Button, BUTTON_TYPES_CLASSES } from "../button/button.component";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { ButtonsContainer, SignInContainer } from "./sign-in-form.styles";
+import { emailSignInStart, googleSignInStart } from "../../store/user/user.action";
 
 const defaultFormFields = {
   email: "",
@@ -15,6 +17,7 @@ const defaultFormFields = {
 };
 
 export const SignInForm = () => {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
@@ -22,17 +25,12 @@ export const SignInForm = () => {
    * Firebase handlers
    */
 
-  const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
-  };
+  const signInWithGoogle = async () => dispatch(googleSignInStart());
 
   /**
    * Form handlers
    */
-  const resetFormFields = () => {
-    setFormFields(defaultFormFields);
-  };
+  const resetFormFields = () => setFormFields(defaultFormFields);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -43,8 +41,7 @@ export const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const response = await signInUserWithEmailAndPassword(email, password);
-      console.log(response);
+      dispatch(emailSignInStart(email, password));
       resetFormFields();
     } catch (error) {
       switch ((error as AuthError).code) {
