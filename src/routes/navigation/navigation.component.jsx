@@ -14,7 +14,7 @@ export const Navigation = () => {
           <Link className="nav-link" to="/profile">
             PERFIL
           </Link>
-          <Link className="nav-link" to="/sign-in">
+          <Link className="nav-link" to="/auth">
             ENTRAR
           </Link>
         </div>
