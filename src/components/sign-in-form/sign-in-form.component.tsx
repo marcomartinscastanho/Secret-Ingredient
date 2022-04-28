@@ -19,7 +19,6 @@ export const SignInForm = () => {
   /**
    * Firebase handlers
    */
-
   const signInWithGoogle = async () => dispatch(googleSignInStart());
 
   /**

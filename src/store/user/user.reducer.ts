@@ -1,6 +1,7 @@
 import { AnyAction } from "redux";
 import { UserData } from "../../utils/firebase/firebase.utils";
 import {
+  setIsProfileMenuOpen,
   signInFailed,
   signInSuccess,
   signOutFailed,
@@ -9,18 +10,24 @@ import {
 } from "./user.action";
 
 export type UserState = {
+  readonly isProfileMenuOpen: boolean;
   readonly currentUser: UserData | null;
   readonly isLoading: boolean;
   readonly error: Error | null;
 };
 
 const INITIAL_STATE: UserState = {
+  isProfileMenuOpen: false,
   currentUser: null,
   isLoading: false,
   error: null,
 };
 
 export const userReducer = (state = INITIAL_STATE, action: AnyAction) => {
+  if (setIsProfileMenuOpen.match(action)) {
+    return { ...state, isProfileMenuOpen: action.payload };
+  }
+
   if (signInSuccess.match(action)) {
     return { ...state, currentUser: action.payload };
   }

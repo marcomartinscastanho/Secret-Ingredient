@@ -12,7 +12,7 @@ const Tags = () => {
 };
 
 const Profile = () => {
-  return <h1>I am the profile page</h1>;
+  return <h1>Perfil</h1>;
 };
 
 export const App = () => {

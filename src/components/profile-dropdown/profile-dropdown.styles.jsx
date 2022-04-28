@@ -14,7 +14,7 @@ export const ProfileDropdownContainer = styled.div`
   gap: 16px;
 `;
 
-export const ProfileItem = styled(Link)`
+export const ProfileMenuItem = styled(Link)`
   display: flex;
   cursor: pointer;
   flex-direction: column;

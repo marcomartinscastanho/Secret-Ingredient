@@ -1,17 +1,23 @@
 import { useDispatch } from "react-redux";
-import { signOutStart } from "../../store/user/user.action";
-import { ProfileDropdownContainer, ProfileItem } from "./profile-dropdown.styles";
+import { setIsProfileMenuOpen, signOutStart } from "../../store/user/user.action";
+import { ProfileDropdownContainer, ProfileMenuItem } from "./profile-dropdown.styles";
 
 export const ProfileDropdown = () => {
   const dispatch = useDispatch();
-  const signOutUser = () => dispatch(signOutStart());
+  const handleSignOutClick = () => {
+    dispatch(setIsProfileMenuOpen(false));
+    dispatch(signOutStart());
+  };
+  const handleProfileClick = () => dispatch(setIsProfileMenuOpen(false));
 
   return (
     <ProfileDropdownContainer>
-      <ProfileItem to="/profile">PERFIL</ProfileItem>
-      <ProfileItem as="span" onClick={signOutUser}>
+      <ProfileMenuItem to="/profile" onClick={handleProfileClick}>
+        PERFIL
+      </ProfileMenuItem>
+      <ProfileMenuItem as="span" onClick={handleSignOutClick}>
         SAIR
-      </ProfileItem>
+      </ProfileMenuItem>
     </ProfileDropdownContainer>
   );
 };

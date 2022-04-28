@@ -1,9 +1,10 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import { ProfileDropdown } from "../../components/profile-dropdown/profile-dropdown.container";
-import { selectCurrentUser } from "../../store/user/user.selector";
+import { setIsProfileMenuOpen } from "../../store/user/user.action";
+import { selectCurrentUser, selectIsProfileMenuOpen } from "../../store/user/user.selector";
 import {
   LogoContainer,
   NavigationContainer,
@@ -14,10 +15,10 @@ import {
 
 export const Navigation = () => {
   const dispatch = useDispatch();
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const currentUser = useSelector(selectCurrentUser);
+  const isProfileMenuOpen = useSelector(selectIsProfileMenuOpen);
 
-  const toggleIsProfileMenuOpen = () => setIsProfileMenuOpen(!isProfileMenuOpen);
+  const toggleIsProfileMenuOpen = () => dispatch(setIsProfileMenuOpen(!isProfileMenuOpen));
 
   return (
     <Fragment>

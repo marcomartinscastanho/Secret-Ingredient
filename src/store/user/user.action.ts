@@ -11,6 +11,10 @@ import { User } from "firebase/auth";
 /**
  * Action Types
  */
+export type SetIsProfileMenuOpen = ActionWithPayload<
+  USER_ACTION_TYPES.SET_IS_PROFILE_MENU_OPEN,
+  boolean
+>;
 export type SetCurrentUser = ActionWithPayload<USER_ACTION_TYPES.SET_CURRENT_USER, UserData>;
 export type CheckUserSession = Action<USER_ACTION_TYPES.CHECK_USER_SESSION>;
 export type GoogleSignInStart = Action<USER_ACTION_TYPES.GOOGLE_SIGN_IN_START>;
@@ -37,6 +41,9 @@ export type SignOutFailed = ActionWithPayload<USER_ACTION_TYPES.SIGN_OUT_FAILED,
  * Action creator functions
  * with the match() property
  */
+export const setIsProfileMenuOpen = withMatcher((boolean: boolean) =>
+  createAction(USER_ACTION_TYPES.SET_IS_PROFILE_MENU_OPEN, boolean)
+);
 export const setCurrentUser = withMatcher(
   (user: UserData): SetCurrentUser => createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user)
 );
