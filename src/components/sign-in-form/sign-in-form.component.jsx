@@ -46,11 +46,14 @@ export const SignInForm = () => {
       console.log(response);
       resetFormFields();
     } catch (error) {
-      // if (error.code === "auth/email-already-in-use") {
-      //   alert("Já existe um utilizador registado com esse email");
-      // } else {
-      console.error("user creation encontered an error", error);
-      // }
+      switch (error.code) {
+        case "auth/wrong-password":
+        case "auth/user-not-found":
+          alert("email e/ou password incorrectos");
+          break;
+        default:
+          console.error(error);
+      }
     }
   };
 
@@ -77,7 +80,7 @@ export const SignInForm = () => {
         />
         <div className="buttons-container">
           <Button type="submit">Entrar</Button>
-          <Button buttonType="google" onClick={signInWithGoogle}>
+          <Button type="button" buttonType="google" onClick={signInWithGoogle}>
             Entrar com Google
           </Button>
         </div>
