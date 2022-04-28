@@ -9,7 +9,17 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import { doc, getDoc, getFirestore, QueryDocumentSnapshot, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  query,
+  QueryDocumentSnapshot,
+  setDoc,
+} from "firebase/firestore";
+import { Recipe } from "../../store/recipes/recipe.types";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCdgtS1HYzoP7jcplx3-RBH9W51stC_YEM",
@@ -113,4 +123,15 @@ export const createUserDocumentFromAuth = async (
   }
 
   return userSnapshot as QueryDocumentSnapshot<UserData>;
+};
+
+/**
+ * Recipes Documents
+ */
+export const getRecipes = async (): Promise<Recipe[]> => {
+  const collectionRef = collection(db, "recipes");
+  const q = query(collectionRef);
+  const querySnapshot = await getDocs(q);
+
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data() as Recipe);
 };
