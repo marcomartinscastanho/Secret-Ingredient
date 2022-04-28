@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export const NavigationContainer = styled.div`
   height: 70px;
   width: 100%;
+  max-width: 1000px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
@@ -16,7 +17,8 @@ export const LogoContainer = styled(Link)`
 `;
 
 export const NavLinks = styled.div`
-  width: 50%;
+  position: relative;
+  float: right;
   height: 100%;
   display: flex;
   align-items: center;
@@ -26,4 +28,9 @@ export const NavLinks = styled.div`
 export const NavLink = styled(Link)`
   padding: 10px 15px;
   cursor: pointer;
+`;
+
+export const ProfileNavLink = styled(NavLink)`
+  max-width: 100px;
+  overflow: hidden;
 `;

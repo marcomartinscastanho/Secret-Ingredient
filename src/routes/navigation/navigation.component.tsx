@@ -1,16 +1,23 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
-import { signOutStart } from "../../store/user/user.action";
+import { ProfileDropdown } from "../../components/profile-dropdown/profile-dropdown.container";
 import { selectCurrentUser } from "../../store/user/user.selector";
-import { LogoContainer, NavigationContainer, NavLink, NavLinks } from "./navigation.styles";
+import {
+  LogoContainer,
+  NavigationContainer,
+  NavLink,
+  NavLinks,
+  ProfileNavLink,
+} from "./navigation.styles";
 
 export const Navigation = () => {
   const dispatch = useDispatch();
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const currentUser = useSelector(selectCurrentUser);
 
-  const signOutUser = () => dispatch(signOutStart());
+  const toggleIsProfileMenuOpen = () => setIsProfileMenuOpen(!isProfileMenuOpen);
 
   return (
     <Fragment>
@@ -23,15 +30,13 @@ export const Navigation = () => {
           <NavLink to="/ingredients">INGREDIENTES</NavLink>
           <NavLink to="/tags">ETIQUETAS</NavLink>
           {!!currentUser ? (
-            <>
-              <NavLink to="/profile">{currentUser.displayName.toLocaleUpperCase()}</NavLink>
-              <NavLink as="span" onClick={signOutUser}>
-                SAIR
-              </NavLink>
-            </>
+            <ProfileNavLink as="span" onClick={toggleIsProfileMenuOpen}>
+              {currentUser.displayName.toLocaleUpperCase()}
+            </ProfileNavLink>
           ) : (
             <NavLink to="/auth">ENTRAR</NavLink>
           )}
+          {isProfileMenuOpen && <ProfileDropdown />}
         </NavLinks>
       </NavigationContainer>
       <Outlet />

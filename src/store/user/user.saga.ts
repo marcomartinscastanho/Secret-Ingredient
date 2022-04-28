@@ -57,7 +57,6 @@ export function* signInWithGoogle() {
 }
 
 export function* signInWithEmail({ payload: { email, password } }: EmailSignInStart) {
-  // destructuring action: { payload: { email, password } }
   try {
     const userCredential = yield* call(signInAuthUserWithEmailAndPassword, email, password);
     if (userCredential) {
