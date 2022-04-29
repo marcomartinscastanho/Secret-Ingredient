@@ -8,8 +8,10 @@ export const RecipeItemContainer = styled(Link)`
   border: 1px solid rgb(245, 245, 245);
   border-radius: 5px;
   padding: 5px 10px;
+  height: 42px;
   margin: 0 0 2px;
   gap: 16px;
+  font-size: larger;
 
   &:hover {
     cursor: pointer;
@@ -30,15 +32,15 @@ export const RecipeTime = styled.span`
 
 export const RecipeTagsContainer = styled.div`
   width: 30%;
-  height: 26px;
+  height: 32px;
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
   justify-content: right;
 `;
 
-export const RecipeTag = styled.div`
-  height: 26px;
+export const RecipeTag = styled(Link)`
+  height: 32px;
   display: block;
   color: white;
   background-color: rgb(80, 80, 80);

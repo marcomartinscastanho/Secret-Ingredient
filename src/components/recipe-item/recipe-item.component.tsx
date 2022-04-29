@@ -21,7 +21,9 @@ export const RecipeItem: FC<RecipeItemProps> = ({ recipe }) => {
       <RecipeTime>{prepTime + cookTime} minutos</RecipeTime>
       <RecipeTagsContainer>
         {tags.map((tag) => (
-          <RecipeTag key={tag.id}>{tag.name}</RecipeTag>
+          <RecipeTag to={`/recipes/t/${tag.id}`} key={tag.id}>
+            {tag.name}
+          </RecipeTag>
         ))}
       </RecipeTagsContainer>
     </RecipeItemContainer>

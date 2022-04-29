@@ -8,8 +8,10 @@ export const IngredientItemContainer = styled(Link)`
   border: 1px solid rgb(245, 245, 245);
   border-radius: 5px;
   padding: 5px 10px;
+  height: 42px;
   margin: 0 0 2px;
   gap: 16px;
+  font-size: larger;
 
   &:hover {
     cursor: pointer;
