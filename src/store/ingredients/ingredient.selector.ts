@@ -1,7 +1,8 @@
 import { createSelector } from "reselect";
+import { selectIngredientsRecipeMap } from "../recipes/recipe.selector";
 import { RootState } from "../store";
 import { IngredientsState } from "./ingredient.reducer";
-import { IngredientMap } from "./ingredient.types";
+import { Ingredient, IngredientMap } from "./ingredient.types";
 
 const selectIngredientReducer = (state: RootState): IngredientsState => state.ingredients;
 
@@ -23,4 +24,25 @@ export const selectIngredientsMap = createSelector(
 export const selectIngredientsIsLoading = createSelector(
   [selectIngredientReducer],
   (ingredientsSlice) => ingredientsSlice.isLoading
+);
+
+export const selectIngredientsSortedByRecipes = createSelector(
+  [selectIngredients, selectIngredientsRecipeMap],
+  (ingredientsSlice, ingredientsRecipeMap) => {
+    function compare(a: Ingredient, b: Ingredient) {
+      const aRecipes = ingredientsRecipeMap[a.id];
+      const bRecipes = ingredientsRecipeMap[b.id];
+
+      if (aRecipes.length > bRecipes.length) {
+        return -1;
+      }
+      if (aRecipes.length < bRecipes.length) {
+        return 1;
+      }
+      return 0;
+    }
+
+    const ingredients: Ingredient[] = [...ingredientsSlice];
+    return ingredients.sort(compare);
+  }
 );

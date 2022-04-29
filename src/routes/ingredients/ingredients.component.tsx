@@ -4,15 +4,15 @@ import IngredientItem from "../../components/ingredient-item/ingredient-item.com
 import { Spinner } from "../../components/spinner/spinner.component";
 import { fetchIngredientsStart } from "../../store/ingredients/ingredient.action";
 import {
-  selectIngredients,
   selectIngredientsIsLoading,
+  selectIngredientsSortedByRecipes,
 } from "../../store/ingredients/ingredient.selector";
 import { IngredientsContainer, Title } from "./ingredients.styles";
 
 export const Ingredients = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIngredientsIsLoading);
-  const ingredients = useSelector(selectIngredients);
+  const ingredients = useSelector(selectIngredientsSortedByRecipes);
 
   useEffect(() => {
     dispatch(fetchIngredientsStart());
@@ -25,9 +25,9 @@ export const Ingredients = () => {
         <Spinner />
       ) : (
         <IngredientsContainer>
-          {ingredients.map((ingredient) => {
-            return <IngredientItem ingredient={ingredient} key={ingredient.id} />;
-          })}
+          {ingredients.map((ingredient) => (
+            <IngredientItem ingredient={ingredient} key={ingredient.id} />
+          ))}
         </IngredientsContainer>
       )}
     </Fragment>

@@ -44,7 +44,7 @@ export const selectVisibleRecipes = createSelector(
 export const selectIngredientsRecipeMap = createSelector(
   [selectVisibleRecipes],
   (recipes): RecipeMap =>
-    recipes.reduce((acc, recipe) => {
+    recipes.reduce<RecipeMap>((acc, recipe) => {
       const { ingredients } = recipe;
       ingredients.forEach((ingredient) => {
         const id = ingredient.ingredient.id;
@@ -55,5 +55,5 @@ export const selectIngredientsRecipeMap = createSelector(
       });
 
       return acc;
-    }, {} as RecipeMap)
+    }, {})
 );
