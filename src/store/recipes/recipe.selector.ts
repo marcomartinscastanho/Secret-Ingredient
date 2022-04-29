@@ -63,7 +63,7 @@ export const selectIngredientsRecipeMap = createSelector(
 export const selectTagsRecipeMap = createSelector([selectVisibleRecipes], (recipes) =>
   recipes.reduce<RecipeMap>((acc, recipe) => {
     const { tags } = recipe;
-    tags.forEach((tag) => {
+    tags?.forEach((tag) => {
       const id = tag.id;
       const tagRecipes = acc[id] || (acc[id] = []);
       if (tagRecipes.filter((tag) => tag.id === recipe.id).length === 0) {
