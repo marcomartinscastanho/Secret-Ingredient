@@ -11,6 +11,7 @@ export const selectIngredients = createSelector(
   (ingredientsSlice) => ingredientsSlice.ingredients
 );
 
+// [key: ingredient.id]: Ingredient
 export const selectIngredientsMap = createSelector(
   [selectIngredients],
   (ingredients): IngredientMap =>
@@ -39,10 +40,18 @@ export const selectIngredientsSortedByRecipes = createSelector(
       if (aRecipes.length < bRecipes.length) {
         return 1;
       }
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
       return 0;
     }
 
     const ingredients: Ingredient[] = [...ingredientsSlice];
-    return ingredients.sort(compare);
+    return ingredients
+      .filter((ingredient) => ingredientsRecipeMap[ingredient.id].length)
+      .sort(compare);
   }
 );

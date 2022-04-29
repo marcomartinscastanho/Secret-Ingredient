@@ -41,6 +41,7 @@ export const selectVisibleRecipes = createSelector(
   }
 );
 
+// [key: ingredient.id]: Recipe[]
 export const selectIngredientsRecipeMap = createSelector(
   [selectVisibleRecipes],
   (recipes): RecipeMap =>
