@@ -46,10 +46,10 @@ export const Navigation = () => {
           <NavLink as="span" onClick={toggleIsRecipesMenuOpen}>
             RECEITAS
           </NavLink>
-          <NavLink to="/ingredients" onClick={closeDropdownMenus}>
+          <NavLink to="/recipes/i" onClick={closeDropdownMenus}>
             INGREDIENTES
           </NavLink>
-          <NavLink to="/tags" onClick={closeDropdownMenus}>
+          <NavLink to="/recipes/t" onClick={closeDropdownMenus}>
             ETIQUETAS
           </NavLink>
           {!!currentUser ? (
