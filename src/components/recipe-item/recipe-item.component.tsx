@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Recipe } from "../../store/recipes/recipe.types";
 import {
-  RecipeContainer,
+  RecipeItemContainer,
   RecipeTag,
   RecipeTagsContainer,
   RecipeTime,
@@ -16,7 +16,7 @@ export const RecipeItem: FC<RecipeItemProps> = ({ recipe }) => {
   const { title, cookTime, prepTime, tags } = recipe;
 
   return (
-    <RecipeContainer>
+    <RecipeItemContainer to="/">
       <RecipeTitle>{title}</RecipeTitle>
       <RecipeTime>{prepTime + cookTime} minutos</RecipeTime>
       <RecipeTagsContainer>
@@ -24,7 +24,7 @@ export const RecipeItem: FC<RecipeItemProps> = ({ recipe }) => {
           <RecipeTag key={tag.id}>{tag.name}</RecipeTag>
         ))}
       </RecipeTagsContainer>
-    </RecipeContainer>
+    </RecipeItemContainer>
   );
 };
 

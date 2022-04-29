@@ -20,8 +20,8 @@ export const fetchIngredientsStart = withMatcher(
   (): FetchIngredientsStart => createAction(INGREDIENTS_ACTION_TYPES.FETCH_INGREDIENTS_START)
 );
 export const fetchIngredientsSuccess = withMatcher(
-  (categoriesArray: Ingredient[]): FetchIngredientsSuccess =>
-    createAction(INGREDIENTS_ACTION_TYPES.FETCH_INGREDIENTS_SUCCESS, categoriesArray)
+  (ingredientsArray: Ingredient[]): FetchIngredientsSuccess =>
+    createAction(INGREDIENTS_ACTION_TYPES.FETCH_INGREDIENTS_SUCCESS, ingredientsArray)
 );
 export const fetchIngredientsFailed = withMatcher(
   (error: Error): FetchIngredientsFailed =>
