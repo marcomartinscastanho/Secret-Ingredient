@@ -45,6 +45,6 @@ export const selectTagsSortedByRecipes = createSelector(
     }
 
     const tags: Tag[] = [...tagsSlice];
-    return tags.filter((ingredient) => tagsRecipeMap[ingredient.id].length).sort(compare);
+    return tags.filter((ingredient) => tagsRecipeMap[ingredient.id]?.length).sort(compare);
   }
 );

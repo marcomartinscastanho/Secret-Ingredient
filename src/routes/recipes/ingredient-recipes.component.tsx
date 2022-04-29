@@ -8,6 +8,7 @@ type IngredientRecipesRouteParams = {
   id: string;
 };
 
+// /recipes/i/:id
 export const IngredientRecipes = () => {
   const { id } = useParams<keyof IngredientRecipesRouteParams>() as IngredientRecipesRouteParams;
   const ingredientsRecipeMap = useSelector(selectIngredientsRecipeMap);

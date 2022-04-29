@@ -51,7 +51,7 @@ export const selectIngredientsSortedByRecipes = createSelector(
 
     const ingredients: Ingredient[] = [...ingredientsSlice];
     return ingredients
-      .filter((ingredient) => ingredientsRecipeMap[ingredient.id].length)
+      .filter((ingredient) => ingredientsRecipeMap[ingredient.id]?.length)
       .sort(compare);
   }
 );

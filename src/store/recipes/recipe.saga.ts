@@ -6,8 +6,6 @@ import { RECIPES_ACTION_TYPES } from "./recipe.types";
 export function* fetchRecipesAsync() {
   try {
     const recipesArray = yield* call(getRecipes);
-    console.log("recipesArray", recipesArray);
-
     yield put(fetchRecipesSuccess(recipesArray));
   } catch (error) {
     yield put(fetchRecipesFailed(error as Error));

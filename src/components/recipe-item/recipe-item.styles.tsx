@@ -39,7 +39,7 @@ export const RecipeTagsContainer = styled.div`
   justify-content: right;
 `;
 
-export const RecipeTag = styled(Link)`
+export const RecipeTag = styled.div`
   height: 32px;
   display: block;
   color: white;

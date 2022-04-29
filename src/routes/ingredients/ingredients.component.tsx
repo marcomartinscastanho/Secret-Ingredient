@@ -8,6 +8,7 @@ import {
 } from "../../store/ingredients/ingredient.selector";
 import { IngredientsContainer, Title } from "./ingredients.styles";
 
+// /recipes/i
 export const Ingredients = () => {
   const isLoading = useSelector(selectIngredientsIsLoading);
   const ingredients = useSelector(selectIngredientsSortedByRecipes);

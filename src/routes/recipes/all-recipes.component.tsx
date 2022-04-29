@@ -4,9 +4,6 @@ import { selectVisibleRecipes } from "../../store/recipes/recipe.selector";
 
 export const AllRecipes = () => {
   const recipes = useSelector(selectVisibleRecipes);
-
-  console.log("recipes", recipes);
-
   return <RecipesList title="Todas as Receitas" recipes={recipes} />;
 };
 
