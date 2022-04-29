@@ -3,10 +3,7 @@ import { Navigation } from "./routes/navigation/navigation.component";
 import { Home } from "./routes/home/home.component";
 import { Auth } from "./routes/auth/auth.component";
 import { Recipes } from "./routes/recipes/recipes.component";
-
-const Ingredients = () => {
-  return <h1>Ingredientes</h1>;
-};
+import { Ingredients } from "./routes/ingredients/ingredients.component";
 
 const Tags = () => {
   return <h1>Etiquetas</h1>;

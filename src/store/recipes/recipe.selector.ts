@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { RootState } from "../store";
 import { selectCurrentUser } from "../user/user.selector";
@@ -26,15 +25,16 @@ export const selectPublicRecipes = createSelector([selectRecipes], (recipes) =>
   recipes.filter((recipe) => recipe.isPublic)
 );
 
-export const selectOwnRecipes = createSelector([selectRecipes, selectCurrentUser], (recipes) => {
-  const currentUser = useSelector(selectCurrentUser);
-  return recipes.filter((recipe) => currentUser && recipe.owner.email === currentUser.email);
-});
+export const selectOwnRecipes = createSelector(
+  [selectRecipes, selectCurrentUser],
+  (recipes, currentUser) => {
+    return recipes.filter((recipe) => currentUser && recipe.owner.email === currentUser.email);
+  }
+);
 
 export const selectVisibleRecipes = createSelector(
   [selectRecipes, selectCurrentUser],
-  (recipes) => {
-    const currentUser = useSelector(selectCurrentUser);
+  (recipes, currentUser) => {
     return recipes.filter(
       (recipe) => recipe.isPublic || (currentUser && recipe.owner.email === currentUser.email)
     );

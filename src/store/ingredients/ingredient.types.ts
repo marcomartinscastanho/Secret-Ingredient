@@ -8,3 +8,7 @@ export type Ingredient = {
   id: string;
   name: string;
 };
+
+export type IngredientMap = {
+  [key: string]: Ingredient;
+};

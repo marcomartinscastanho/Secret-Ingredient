@@ -27,8 +27,8 @@ export const fetchRecipesStart = withMatcher(
   (): FetchRecipesStart => createAction(RECIPES_ACTION_TYPES.FETCH_RECIPES_START)
 );
 export const fetchRecipesSuccess = withMatcher(
-  (categoriesArray: Recipe[]): FetchRecipesSuccess =>
-    createAction(RECIPES_ACTION_TYPES.FETCH_RECIPES_SUCCESS, categoriesArray)
+  (recipesArray: Recipe[]): FetchRecipesSuccess =>
+    createAction(RECIPES_ACTION_TYPES.FETCH_RECIPES_SUCCESS, recipesArray)
 );
 export const fetchRecipesFailed = withMatcher(
   (error: Error): FetchRecipesFailed =>

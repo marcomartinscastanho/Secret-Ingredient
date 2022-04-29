@@ -12,6 +12,7 @@ import {
 import {
   collection,
   doc,
+  DocumentReference,
   getDoc,
   getDocs,
   getFirestore,
@@ -20,7 +21,8 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { Ingredient } from "../../store/ingredients/ingredient.types";
-import { Recipe } from "../../store/recipes/recipe.types";
+import { Recipe, RecipeIngredient } from "../../store/recipes/recipe.types";
+import { Tag } from "../../store/tags/tag.types";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCdgtS1HYzoP7jcplx3-RBH9W51stC_YEM",
@@ -109,7 +111,7 @@ export const createUserDocumentFromAuth = async (
   if (!userAuth) return;
 
   const userDocRef = doc(db, "users", userAuth.uid);
-  const userSnapshot = await getDoc(userDocRef);
+  let userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
@@ -117,7 +119,7 @@ export const createUserDocumentFromAuth = async (
 
     try {
       await setDoc(userDocRef, { displayName, email, createdAt, ...additionalInformation });
-      return (await getDoc(userDocRef)) as QueryDocumentSnapshot<UserData>;
+      userSnapshot = await getDoc(userDocRef);
     } catch (error) {
       console.error("error creating the user", error);
     }
@@ -134,8 +136,30 @@ export const getRecipes = async (): Promise<Recipe[]> => {
   const q = query(collectionRef);
   const querySnapshot = await getDocs(q);
 
-  return querySnapshot.docs.map(
-    (docSnapshot) => ({ id: docSnapshot.id, ...docSnapshot.data() } as Recipe)
+  return Promise.all(
+    querySnapshot.docs.map(async (recipeSnapshot) => {
+      const { ingredients: recipeIngredients, tags: tagRefs, ...data } = recipeSnapshot.data();
+
+      const ingredients: RecipeIngredient[] = await Promise.all(
+        recipeIngredients.map(
+          async (recipeIngredient: {
+            quantity: string;
+            ingredient: DocumentReference;
+            detail: string;
+          }) => {
+            const { ingredient: ingredientRef, ...additionalData } = recipeIngredient;
+            const ingredient = await getIngredientByRef(ingredientRef);
+            return { ...additionalData, ingredient };
+          }
+        )
+      );
+
+      const tags: Tag[] = await Promise.all(
+        tagRefs.map(async (tagRef: DocumentReference) => await getTagByRef(tagRef))
+      );
+
+      return { ...data, id: recipeSnapshot.id, ingredients, tags } as Recipe;
+    })
   );
 };
 
@@ -150,4 +174,27 @@ export const getIngredients = async (): Promise<Ingredient[]> => {
   return querySnapshot.docs.map(
     (docSnapshot) => ({ id: docSnapshot.id, ...docSnapshot.data() } as Ingredient)
   );
+};
+
+export const getIngredientByRef = async (ingredientRef: DocumentReference): Promise<Ingredient> => {
+  const ingredientSnapshot = await getDoc(ingredientRef);
+  return { id: ingredientSnapshot.id, ...ingredientSnapshot.data() } as Ingredient;
+};
+
+/**
+ * Tags Documents
+ */
+export const getTags = async (): Promise<Tag[]> => {
+  const collectionRef = collection(db, "tags");
+  const q = query(collectionRef);
+  const querySnapshot = await getDocs(q);
+
+  return querySnapshot.docs.map(
+    (docSnapshot) => ({ id: docSnapshot.id, ...docSnapshot.data() } as Tag)
+  );
+};
+
+export const getTagByRef = async (tagRef: DocumentReference): Promise<Tag> => {
+  const tagSnapshot = await getDoc(tagRef);
+  return { id: tagSnapshot.id, ...tagSnapshot.data() } as Tag;
 };
