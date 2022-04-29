@@ -1,59 +1,32 @@
+import { FC, Fragment } from "react";
+import { useSelector } from "react-redux";
+import { selectRecipesIsLoading } from "../../store/recipes/recipe.selector";
 import { Recipe } from "../../store/recipes/recipe.types";
 import { RecipeItem } from "../recipe-item/recipe-item.component";
-import { RecipesContainer } from "./recipes-list.styles";
+import { Spinner } from "../spinner/spinner.component";
+import { RecipesContainer, Title } from "./recipes-list.styles";
 
-const recipes: Recipe[] = [
-  {
-    id: "1",
-    title: "Pataniscas de bacalhau com arroz de feijão",
-    description: "blablabla",
-    prepTime: 30,
-    cookTime: 40,
-    ingredients: [],
-    prepSteps: [],
-    tags: [
-      { id: "1", name: "Peixe" },
-      { id: "2", name: "Portuguesa" },
-    ],
-    isPublic: true,
-    owner: {
-      id: "1",
-      email: "aaaa",
-      displayName: "Aadas",
-      createdAt: new Date(),
-    },
-  },
-  {
-    id: "2",
-    title: "Chili com carne",
-    description: "blablabla",
-    prepTime: 20,
-    cookTime: 40,
-    ingredients: [],
-    prepSteps: [],
-    tags: [
-      { id: "3", name: "Carne" },
-      { id: "4", name: "Mexicana" },
-      { id: "5", name: "Exemplo" },
-      { id: "6", name: "Etiqueta" },
-    ],
-    isPublic: true,
-    owner: {
-      id: "1",
-      email: "aaaa",
-      displayName: "Aadas",
-      createdAt: new Date(),
-    },
-  },
-];
+export type RecipesListProps = {
+  title: string;
+  recipes: Recipe[];
+};
 
-export const RecipesList = () => {
+export const RecipesList: FC<RecipesListProps> = ({ title, recipes }) => {
+  const isLoading = useSelector(selectRecipesIsLoading);
+
   return (
-    <RecipesContainer>
-      {recipes.map((recipe) => (
-        <RecipeItem key={recipe.id} recipe={recipe} />
-      ))}
-    </RecipesContainer>
+    <Fragment>
+      <Title>{title}</Title>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <RecipesContainer>
+          {recipes.map((recipe) => (
+            <RecipeItem key={recipe.id} recipe={recipe} />
+          ))}
+        </RecipesContainer>
+      )}
+    </Fragment>
   );
 };
 
