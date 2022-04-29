@@ -22,6 +22,11 @@ export const Navigation = () => {
   const isProfileMenuOpen = useSelector(selectIsProfileMenuOpen);
   const isRecipesMenuOpen = useSelector(selectIsRecipesMenuOpen);
 
+  const closeDropdownMenus = () => {
+    if (isRecipesMenuOpen) dispatch(setIsRecipesMenuOpen(false));
+    if (isProfileMenuOpen) dispatch(setIsProfileMenuOpen(false));
+  };
+
   const toggleIsProfileMenuOpen = () => {
     if (isRecipesMenuOpen) dispatch(setIsRecipesMenuOpen(false));
     dispatch(setIsProfileMenuOpen(!isProfileMenuOpen));
@@ -41,14 +46,20 @@ export const Navigation = () => {
           <NavLink as="span" onClick={toggleIsRecipesMenuOpen}>
             RECEITAS
           </NavLink>
-          <NavLink to="/ingredients">INGREDIENTES</NavLink>
-          <NavLink to="/tags">ETIQUETAS</NavLink>
+          <NavLink to="/ingredients" onClick={closeDropdownMenus}>
+            INGREDIENTES
+          </NavLink>
+          <NavLink to="/tags" onClick={closeDropdownMenus}>
+            ETIQUETAS
+          </NavLink>
           {!!currentUser ? (
             <ProfileNavLink as="span" onClick={toggleIsProfileMenuOpen}>
               {currentUser.displayName.toLocaleUpperCase()}
             </ProfileNavLink>
           ) : (
-            <NavLink to="/auth">ENTRAR</NavLink>
+            <NavLink to="/auth" onClick={closeDropdownMenus}>
+              ENTRAR
+            </NavLink>
           )}
           {isRecipesMenuOpen && <RecipesDropdown />}
           {isProfileMenuOpen && <ProfileDropdown />}
