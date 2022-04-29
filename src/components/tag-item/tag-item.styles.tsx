@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const IngredientItemContainer = styled(Link)`
+export const TagItemContainer = styled(Link)`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -17,7 +17,7 @@ export const IngredientItemContainer = styled(Link)`
   }
 `;
 
-export const IngredientItemTitle = styled.div`
+export const TagItemTitle = styled.div`
   width: 50%;
   white-space: nowrap;
   overflow: hidden;

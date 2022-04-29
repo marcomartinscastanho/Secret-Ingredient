@@ -9,10 +9,7 @@ import { fetchRecipesStart } from "../../store/recipes/recipe.action";
 import { Ingredients } from "../ingredients/ingredients.component";
 import { fetchIngredientsStart } from "../../store/ingredients/ingredient.action";
 import { fetchTagsStart } from "../../store/tags/tag.action";
-
-const Tags = () => {
-  return <h1>Etiquetas</h1>;
-};
+import { Tags } from "../tags/tags.component";
 
 export const Recipes = () => {
   const dispatch = useDispatch();
