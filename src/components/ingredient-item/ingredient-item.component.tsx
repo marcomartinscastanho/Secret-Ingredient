@@ -14,7 +14,7 @@ export const IngredientItem: FC<IngredientItemProps> = ({ ingredient }) => {
   const recipes = ingredientsRecipeMap[id];
 
   return (
-    <IngredientContainer>
+    <IngredientContainer to={id}>
       <IngredientTitle>{name}</IngredientTitle>
       <div>
         {recipes.length} receita{recipes.length > 1 ? "s" : ""}

@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const IngredientContainer = styled.div`
+export const IngredientContainer = styled(Link)`
   display: flex;
   flex-direction: row;
   justify-content: space-between;

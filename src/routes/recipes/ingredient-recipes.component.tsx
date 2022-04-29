@@ -1,62 +1,22 @@
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RecipesList } from "../../components/recipes-list/recipes-list.component";
-import { Recipe } from "../../store/recipes/recipe.types";
-
-const recipes: Recipe[] = [
-  {
-    id: "1",
-    title: "Pataniscas de bacalhau com arroz de feijão",
-    description: "blablabla",
-    prepTime: 30,
-    cookTime: 40,
-    ingredients: [],
-    prepSteps: [],
-    tags: [
-      { id: "1", name: "Peixe" },
-      { id: "2", name: "Portuguesa" },
-    ],
-    isPublic: true,
-    owner: {
-      id: "1",
-      email: "aaaa",
-      displayName: "Aadas",
-      createdAt: new Date(),
-    },
-  },
-  {
-    id: "2",
-    title: "Chili com carne",
-    description: "blablabla",
-    prepTime: 20,
-    cookTime: 40,
-    ingredients: [],
-    prepSteps: [],
-    tags: [
-      { id: "3", name: "Carne" },
-      { id: "4", name: "Mexicana" },
-      { id: "5", name: "Exemplo" },
-      { id: "6", name: "Etiqueta" },
-    ],
-    isPublic: true,
-    owner: {
-      id: "1",
-      email: "aaaa",
-      displayName: "Aadas",
-      createdAt: new Date(),
-    },
-  },
-];
+import { selectIngredientsMap } from "../../store/ingredients/ingredient.selector";
+import { selectIngredientsRecipeMap } from "../../store/recipes/recipe.selector";
 
 type IngredientRecipesRouteParams = {
-  ingredient: string;
+  id: string;
 };
 
 export const IngredientRecipes = () => {
-  const { ingredient } = useParams<
-    keyof IngredientRecipesRouteParams
-  >() as IngredientRecipesRouteParams;
+  const { id } = useParams<keyof IngredientRecipesRouteParams>() as IngredientRecipesRouteParams;
 
-  return <RecipesList title={`Receitas com ${ingredient}`} recipes={recipes} />;
+  const ingredientsRecipeMap = useSelector(selectIngredientsRecipeMap);
+  const ingredientsMap = useSelector(selectIngredientsMap);
+  const ingredient = ingredientsMap[id];
+  const recipes = ingredientsRecipeMap[id];
+
+  return <RecipesList title={`Receitas com ${ingredient.name}`} recipes={recipes} />;
 };
 
 export default IngredientRecipes;

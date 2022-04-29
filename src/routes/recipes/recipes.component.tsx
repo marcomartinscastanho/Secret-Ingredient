@@ -34,9 +34,9 @@ export const Recipes = () => {
       <Route index element={<AllRecipes />} />
       <Route path="my-recipes" element={<MyRecipes />} />
       <Route path="i" element={<Ingredients />} />
-      <Route path="i/:ingredient" element={<IngredientRecipes />} />
+      <Route path="i/:id" element={<IngredientRecipes />} />
       <Route path="t" element={<Tags />} />
-      <Route path="t/:tag" element={<TagRecipes />} />
+      <Route path="t/:id" element={<TagRecipes />} />
     </Routes>
   );
 };
