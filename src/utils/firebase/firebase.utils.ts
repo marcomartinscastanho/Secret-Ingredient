@@ -154,9 +154,11 @@ export const getRecipes = async (): Promise<Recipe[]> => {
         )
       );
 
-      const tags: Tag[] = await Promise.all(
-        tagRefs.map(async (tagRef: DocumentReference) => await getTagByRef(tagRef))
-      );
+      const tags: Tag[] =
+        tagRefs &&
+        (await Promise.all(
+          tagRefs.map(async (tagRef: DocumentReference) => await getTagByRef(tagRef))
+        ));
 
       return { ...data, id: recipeSnapshot.id, ingredients, tags } as Recipe;
     })

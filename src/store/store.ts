@@ -3,7 +3,6 @@ import { persistStore, persistReducer, PersistConfig } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
 import createSagaMiddleware from "redux-saga";
-// import { rootSaga } from "./root-saga";
 import { rootReducer } from "./root-reducer";
 import { rootSaga } from "./root-saga";
 
@@ -15,14 +14,14 @@ declare global {
   }
 }
 
-// type ExtendedPersistConfig = PersistConfig<RootState> & {
-//   whitelist: (keyof RootState)[];
-// };
+type ExtendedPersistConfig = PersistConfig<RootState> & {
+  whitelist: (keyof RootState)[];
+};
 
-const persistConfig: PersistConfig<RootState> = {
+const persistConfig: ExtendedPersistConfig = {
   key: "root",
   storage,
-  // whitelist: ["cart"],
+  whitelist: [],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

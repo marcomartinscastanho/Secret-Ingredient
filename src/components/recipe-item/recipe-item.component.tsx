@@ -20,7 +20,7 @@ export const RecipeItem: FC<RecipeItemProps> = ({ recipe }) => {
       <RecipeTitle>{title}</RecipeTitle>
       <RecipeTime>{prepTime + cookTime} minutos</RecipeTime>
       <RecipeTagsContainer>
-        {tags.map((tag) => (
+        {tags?.map((tag) => (
           <RecipeTag key={tag.id}>{tag.name}</RecipeTag>
         ))}
       </RecipeTagsContainer>
