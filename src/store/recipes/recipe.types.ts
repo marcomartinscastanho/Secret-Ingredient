@@ -27,3 +27,7 @@ export type Recipe = {
   owner: UserData & { id: string };
   isPublic: boolean;
 };
+
+export type RecipeMap = {
+  [key: string]: Recipe[];
+};

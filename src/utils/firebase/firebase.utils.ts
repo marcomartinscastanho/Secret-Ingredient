@@ -134,7 +134,9 @@ export const getRecipes = async (): Promise<Recipe[]> => {
   const q = query(collectionRef);
   const querySnapshot = await getDocs(q);
 
-  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data() as Recipe);
+  return querySnapshot.docs.map(
+    (docSnapshot) => ({ id: docSnapshot.id, ...docSnapshot.data() } as Recipe)
+  );
 };
 
 /**
@@ -145,5 +147,7 @@ export const getIngredients = async (): Promise<Ingredient[]> => {
   const q = query(collectionRef);
   const querySnapshot = await getDocs(q);
 
-  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data() as Ingredient);
+  return querySnapshot.docs.map(
+    (docSnapshot) => ({ id: docSnapshot.id, ...docSnapshot.data() } as Ingredient)
+  );
 };
