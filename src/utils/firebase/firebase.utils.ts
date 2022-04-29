@@ -19,6 +19,7 @@ import {
   QueryDocumentSnapshot,
   setDoc,
 } from "firebase/firestore";
+import { Ingredient } from "../../store/ingredients/ingredient.types";
 import { Recipe } from "../../store/recipes/recipe.types";
 
 const firebaseConfig = {
@@ -134,4 +135,15 @@ export const getRecipes = async (): Promise<Recipe[]> => {
   const querySnapshot = await getDocs(q);
 
   return querySnapshot.docs.map((docSnapshot) => docSnapshot.data() as Recipe);
+};
+
+/**
+ * Ingredients Documents
+ */
+export const getIngredients = async (): Promise<Ingredient[]> => {
+  const collectionRef = collection(db, "ingredients");
+  const q = query(collectionRef);
+  const querySnapshot = await getDocs(q);
+
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data() as Ingredient);
 };
