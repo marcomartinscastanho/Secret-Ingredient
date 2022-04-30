@@ -8,7 +8,7 @@ export const RecipesDropdown = () => {
 
   return (
     <RecipesDropdownContainer>
-      <RecipesMenuItem as="span" onClick={handleClick}>
+      <RecipesMenuItem to="/recipes/new" onClick={handleClick}>
         NOVA RECEITA
       </RecipesMenuItem>
       <RecipesMenuItem to="/recipes/my-recipes" onClick={handleClick}>

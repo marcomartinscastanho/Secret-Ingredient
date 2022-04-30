@@ -11,6 +11,18 @@ import { fetchIngredientsStart } from "../../store/ingredients/ingredient.action
 import { fetchTagsStart } from "../../store/tags/tag.action";
 import { Tags } from "../tags/tags.component";
 
+const Recipe = () => {
+  return <h1>Receita</h1>;
+};
+
+const NewRecipe = () => {
+  return <h1>Nova Receita</h1>;
+};
+
+const EditRecipe = () => {
+  return <h1>Editar Receita</h1>;
+};
+
 export const Recipes = () => {
   const dispatch = useDispatch();
 
@@ -34,6 +46,9 @@ export const Recipes = () => {
       <Route path="i/:id" element={<IngredientRecipes />} />
       <Route path="t" element={<Tags />} />
       <Route path="t/:id" element={<TagRecipes />} />
+      <Route path="new" element={<NewRecipe />} />
+      <Route path="edit/:id" element={<EditRecipe />} />
+      <Route path=":id" element={<Recipe />} />
     </Routes>
   );
 };

@@ -11,7 +11,7 @@ export const Tags = () => {
 
   return (
     <Fragment>
-      <Title>Tags</Title>
+      <Title>Etiquetas</Title>
       {isLoading ? (
         <Spinner />
       ) : (

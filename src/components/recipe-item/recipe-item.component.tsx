@@ -13,10 +13,10 @@ export type RecipeItemProps = {
 };
 
 export const RecipeItem: FC<RecipeItemProps> = ({ recipe }) => {
-  const { title, cookTime, prepTime, tags } = recipe;
+  const { id, title, cookTime, prepTime, tags } = recipe;
 
   return (
-    <RecipeItemContainer to="/">
+    <RecipeItemContainer to={`/recipes/${id}`}>
       <RecipeTitle>{title}</RecipeTitle>
       <RecipeTime>{prepTime + cookTime} minutos</RecipeTime>
       <RecipeTagsContainer>
