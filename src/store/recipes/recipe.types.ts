@@ -19,6 +19,7 @@ export type Recipe = {
   id: string;
   title: string;
   description: string;
+  portions: number;
   prepTime: number;
   cookTime: number;
   ingredients: RecipeIngredient[];
@@ -29,5 +30,9 @@ export type Recipe = {
 };
 
 export type RecipeMap = {
+  [key: string]: Recipe;
+};
+
+export type RecipesMap = {
   [key: string]: Recipe[];
 };

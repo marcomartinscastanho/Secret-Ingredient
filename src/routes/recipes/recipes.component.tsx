@@ -10,10 +10,7 @@ import { Ingredients } from "../ingredients/ingredients.component";
 import { fetchIngredientsStart } from "../../store/ingredients/ingredient.action";
 import { fetchTagsStart } from "../../store/tags/tag.action";
 import { Tags } from "../tags/tags.component";
-
-const Recipe = () => {
-  return <h1>Receita</h1>;
-};
+import { Recipe } from "../recipe/recipe.component";
 
 const NewRecipe = () => {
   return <h1>Nova Receita</h1>;

@@ -128,6 +128,11 @@ export const createUserDocumentFromAuth = async (
   return userSnapshot as QueryDocumentSnapshot<UserData>;
 };
 
+export const getUserByRef = async (userRef: DocumentReference): Promise<UserData> => {
+  const userSnapshot = await getDoc(userRef);
+  return { id: userSnapshot.id, ...userSnapshot.data() } as UserData & { id: string };
+};
+
 /**
  * Recipes Documents
  */
@@ -138,7 +143,12 @@ export const getRecipes = async (): Promise<Recipe[]> => {
 
   return Promise.all(
     querySnapshot.docs.map(async (recipeSnapshot) => {
-      const { ingredients: recipeIngredients, tags: tagRefs, ...data } = recipeSnapshot.data();
+      const {
+        ingredients: recipeIngredients,
+        tags: tagRefs,
+        owner: ownerRef,
+        ...data
+      } = recipeSnapshot.data();
 
       const ingredients: RecipeIngredient[] = await Promise.all(
         recipeIngredients.map(
@@ -160,7 +170,9 @@ export const getRecipes = async (): Promise<Recipe[]> => {
           tagRefs.map(async (tagRef: DocumentReference) => await getTagByRef(tagRef))
         ));
 
-      return { ...data, id: recipeSnapshot.id, ingredients, tags } as Recipe;
+      const owner = await getUserByRef(ownerRef);
+
+      return { ...data, id: recipeSnapshot.id, ingredients, tags, owner } as Recipe;
     })
   );
 };

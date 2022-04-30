@@ -2,13 +2,24 @@ import { createSelector } from "reselect";
 import { RootState } from "../store";
 import { selectCurrentUser } from "../user/user.selector";
 import { RecipesState } from "./recipe.reducer";
-import { RecipeMap } from "./recipe.types";
+import { RecipeMap, RecipesMap } from "./recipe.types";
 
 const selectRecipeReducer = (state: RootState): RecipesState => state.recipes;
 
 export const selectRecipes = createSelector(
   [selectRecipeReducer],
   (recipesSlice) => recipesSlice.recipes
+);
+
+// [key: recipe.id]: Recipe
+export const selectRecipesMap = createSelector(
+  [selectRecipes],
+  (recipes): RecipeMap =>
+    recipes.reduce<RecipeMap>((acc, recipe) => {
+      const { id } = recipe;
+      acc[id] = recipe;
+      return acc;
+    }, {})
 );
 
 export const selectIsRecipesMenuOpen = createSelector(
@@ -44,8 +55,8 @@ export const selectVisibleRecipes = createSelector(
 // [key: ingredient.id]: Recipe[]
 export const selectIngredientsRecipeMap = createSelector(
   [selectVisibleRecipes],
-  (recipes): RecipeMap =>
-    recipes.reduce<RecipeMap>((acc, recipe) => {
+  (recipes): RecipesMap =>
+    recipes.reduce<RecipesMap>((acc, recipe) => {
       const { ingredients } = recipe;
       ingredients.forEach((ingredient) => {
         const id = ingredient.ingredient.id;
@@ -61,7 +72,7 @@ export const selectIngredientsRecipeMap = createSelector(
 
 // [key: tag.id]: Recipe[]
 export const selectTagsRecipeMap = createSelector([selectVisibleRecipes], (recipes) =>
-  recipes.reduce<RecipeMap>((acc, recipe) => {
+  recipes.reduce<RecipesMap>((acc, recipe) => {
     const { tags } = recipe;
     tags?.forEach((tag) => {
       const id = tag.id;

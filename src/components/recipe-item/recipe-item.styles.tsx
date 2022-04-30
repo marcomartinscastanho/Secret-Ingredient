@@ -41,12 +41,13 @@ export const RecipeTagsContainer = styled.div`
 
 export const RecipeTag = styled.div`
   height: 32px;
-  display: block;
+  display: flex;
+  align-items: center;
   color: white;
   background-color: rgb(80, 80, 80);
   margin: 0 3px 0 0;
-  padding: 2px 5px;
-  border-radius: 3px;
+  padding: 2px 8px;
+  border-radius: 8px;
   white-space: nowrap;
 
   &:hover {
